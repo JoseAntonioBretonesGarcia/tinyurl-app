@@ -1,0 +1,38 @@
+
+app-header {
+  width: 100%;
+  .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.toolbar {
+  background-color: #020617;
+  color: white;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  &__title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 426px) {
+    .container {
+    padding: 0 1rem;
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 425px ) {
+  .container  {
+    padding: 0 1rem;
+    max-width: 400px;
+  }   
+}
+}
+

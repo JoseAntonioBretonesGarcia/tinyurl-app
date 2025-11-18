@@ -1,0 +1,31 @@
+<section class="history-section">
+  <div class="container">
+    <h2 class="section-title">Recently Shortened URLs</h2>
+    <div class="url-list">
+      @for (url of urlHistory; track url.shortUrl) {
+       <div class="url-item">
+  <div class="url-original" [title]="url.originalUrl">
+    {{ url.originalUrl }}
+  </div>
+  <div class="url-short">
+    <a [href]="url.shortUrl" target="_blank" class="short-link">
+      {{ url.shortUrl.replace('https://', '') }}
+    </a>
+    <button 
+      mat-icon-button 
+      (click)="copyToClipboard(url.shortUrl)"
+      matTooltip="Copy to clipboard">
+      <mat-icon>content_copy</mat-icon>
+    </button>
+  </div>
+  @if (url.expiresAt) {
+    <div class="url-expiry">
+      <mat-icon class="expiry-icon">schedule</mat-icon>
+      Expires: {{ url.expiresAt | date:'medium' }}
+    </div>
+  }
+</div>
+      }
+    </div>
+  </div>
+</section>

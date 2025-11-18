@@ -1,0 +1,77 @@
+<div class="hero">
+  <div class="container">
+    <mat-card class="hero__card">
+      <mat-card-content>
+        <h2 class="hero__title">Shorten your long URLs</h2>
+        <p class="hero__subtitle">Paste your long URL below to get a shortened link</p>
+        
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+          <mat-form-field appearance="outline" class="form__field">
+            <mat-label>Long URL *</mat-label>
+            <input
+              matInput
+              placeholder="https://example.com/very/long/link"
+              formControlName="originalUrl"
+              required
+            />
+            @if (form.controls['originalUrl'].touched && form.controls['originalUrl'].invalid) {
+              <mat-error>
+                Please enter a valid URL
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <div class="form__row">
+            <mat-form-field appearance="outline" class="form__field">
+              <mat-label>Domain</mat-label>
+              <input matInput value="tinyurl.com" disabled />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form__field">
+              <mat-label>Alias (optional)</mat-label>
+              <input
+                matInput
+                placeholder="Add alias here"
+                formControlName="customAlias"
+              />
+              @if (form.controls['customAlias'].touched && form.controls['customAlias'].invalid) {
+                <mat-hint>Must be at least 5 characters</mat-hint>
+              }
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="form__field">
+            <mat-label>Expires at (optional)</mat-label>
+            <input
+              matInput
+              type="datetime-local"
+              formControlName="expiresAt"
+            />
+          </mat-form-field>
+
+          <div class="form__actions">
+            <mat-checkbox formControlName="allowDuplicates">
+              Allow duplicates
+            </mat-checkbox>
+
+            <button
+              mat-flat-button
+              color="primary"
+              type="submit"
+              [disabled]="isLoading"
+              class="form__submit"
+            >
+              @if (isLoading) {
+                <span class="button__content">
+                  <span>Shortening...</span>
+                </span>
+              } @else {
+                <span>Shorten Link</span>
+              }
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

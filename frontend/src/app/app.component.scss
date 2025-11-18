@@ -1,0 +1,145 @@
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;  // Takes full viewport height
+  margin: 0;
+  padding: 0;
+
+  .main {
+    flex: 1;  // Changed from flex: 1 0 auto to just flex: 1
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  
+  ::ng-deep .mat-mdc-progress-spinner {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  
+  ::ng-deep .mat-mdc-progress-spinner circle {
+    stroke-width: 4px;
+  }
+  
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.toast {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  
+  &--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  &__content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 350px;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #10b981;
+    }
+  }
+  
+  &--error {
+    .toast__content {
+      &::before {
+        background: #ef4444;
+      }
+    }
+    
+    .toast__title {
+      color: #b91c1c;
+    }
+    
+    .toast__icon--error {
+      color: #ef4444;
+    }
+  }
+  
+  &__icon {
+    color: #10b981;
+    margin-top: 2px;
+    flex-shrink: 0;
+    
+    &--error {
+      color: #ef4444;
+    }
+  }
+  
+  &__message {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  &__title {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+    font-size: 0.9375rem;
+  }
+  
+  &__subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+  
+  &__close {
+    margin: -0.5rem -0.5rem -0.5rem 0.5rem;
+    color: #9ca3af;
+    flex-shrink: 0;
+    
+    &:hover {
+      color: #6b7280;
+      background: rgba(0, 0, 0, 0.04);
+    }
+    
+    .mat-icon {
+      font-size: 1.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+}

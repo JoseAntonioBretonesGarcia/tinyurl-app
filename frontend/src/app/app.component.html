@@ -1,0 +1,42 @@
+<app-header></app-header>
+<main class="main">
+  <app-url-shortener-form
+    (urlShortened)="onUrlShortened($event)"
+    [isLoading]="loading()">
+  </app-url-shortener-form>
+
+  @if(urlHistory.getValue().length) {
+    <app-url-history 
+      [urlHistory]="urlHistory$ | async">
+    </app-url-history>
+  }
+   <!-- Spinner with loading condition -->
+  <div class="spinner" [class.visible]="loading()">
+    <mat-spinner diameter="80"></mat-spinner>
+  </div>
+
+   <!-- Toast Notification -->
+  <div class="toast" [class.toast--visible]="showToast()" [class.toast--error]="isErrorToast()">
+    <div class="toast__content">
+      @if (!isErrorToast()) {
+        <mat-icon class="toast__icon">check_circle</mat-icon>
+      } @else {
+        <mat-icon class="toast__icon toast__icon--error">error</mat-icon>
+      }
+      <div class="toast__message">
+        @if (!isErrorToast()) {
+          <div class="toast__title">Success</div>
+          <div class="toast__subtitle">{{ toastMessage() }}</div>
+        } @else {
+          <div class="toast__title">Error</div>
+          <div class="toast__subtitle">{{ toastMessage() }}</div>
+        }
+      </div>
+      <button mat-icon-button class="toast__close" (click)="hideToast()" aria-label="Close">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  
+</main>
+<app-footer></app-footer>
