@@ -1,16 +1,11 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:16
-    container_name: tinyurl_db
     restart: unless-stopped
     environment:
       POSTGRES_USER: tinyurl
       POSTGRES_PASSWORD: tinyurl_password
       POSTGRES_DB: tinyurl
-    ports:
-      - "5432:5432"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
       - ./postgres-init:/docker-entrypoint-initdb.d
@@ -18,7 +13,6 @@ services:
   backend:
     build: 
       context: ./backend
-    container_name: tinyurl_backend
     restart: unless-stopped
     depends_on:
       - db
@@ -26,15 +20,10 @@ services:
       PORT: 3000
       DATABASE_URL: postgres://tinyurl:tinyurl_password@db:5432/tinyurl
       BASE_URL: http://localhost:3000
-    ports:
-      - "3000:3000"
 
   frontend:
     build: 
       context: ./frontend
-    container_name: tinyurl_frontend
     restart: unless-stopped
     depends_on:
       - backend
-    ports:
-      - "4200:80"
