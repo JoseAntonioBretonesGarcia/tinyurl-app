@@ -5,12 +5,8 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
-    healthcheck:
-      test: ["CMD", "wget", "-q", "http://localhost/health", "-O", "/dev/null"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 5s
+    ports:
+      - "4200:80"
 
   backend:
     build: 
@@ -18,16 +14,12 @@ services:
     restart: unless-stopped
     depends_on:
       - db
+    ports:
+      - "3000:3000"
     environment:
       PORT: 3000
       DATABASE_URL: postgres://tinyurl:tinyurl_password@db:5432/tinyurl
       BASE_URL: http://localhost:3000
-    healthcheck:
-      test: ["CMD", "wget", "-q", "http://localhost:3000/api/health", "-O", "/dev/null"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 5s
 
   db:
     image: postgres:16

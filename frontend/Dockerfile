@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular app
-FROM node:18 as build
+FROM node:20 as build
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 
 # Build the Angular app with production configuration
-RUN npm run build -- --configuration production
+RUN npm run build
 
 # Verify the build output
 RUN ls -la /app/dist/frontend
